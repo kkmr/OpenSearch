@@ -242,6 +242,11 @@ public class BinaryFieldMapper extends ParametrizedFieldMapper {
      */
     public static class CustomBinaryDocValuesField extends CustomDocValuesField {
 
+        // We considered making this a TreeSet.  However, benchmarks showed
+        // that we get better performance with ArrayList. Benchmarking code is
+        // in CustomBinaryDocValuesFieldBenchmark.
+        // Benchmarking results are at:
+        // https://github.com/opensearch-project/OpenSearch/pull/9426
         private final ArrayList<byte[]> bytesList;
 
         public CustomBinaryDocValuesField(String name, byte[] bytes) {
